@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    // Span the monorepo so the @sms/core-logic path alias (resolving to
+    // packages/core-logic/src) doesn't trip TS6059. rootDir doesn't affect
+    // semantics under noEmit; this is purely about file-set scoping.
+    "rootDir": "../..",
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["dist", "node_modules", "../../**/node_modules/**", "../../**/dist/**"]
+}

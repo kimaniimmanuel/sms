@@ -1,0 +1,42 @@
+# CODEOWNERS — automatically request review when matching files change.
+#
+# Right now this is a solo build. The single owner (@PROJECT-OWNER) is the
+# default reviewer for everything. The file exists primarily to:
+#
+#   1. Document responsibility on each path, in case the project gains
+#      collaborators or contractors.
+#   2. Be ready: when you hire or bring on a co-builder, just add their handle
+#      to the relevant lines and the routing kicks in automatically.
+#
+# Replace @PROJECT-OWNER with your GitHub handle before the first PR.
+#
+# When adding teammates later:
+#   - Engineering reviewer: append @ENGINEER-HANDLE to /apps/ and /packages/
+#   - Designer: append @DESIGNER-HANDLE to /apps/desktop/ and /apps/mobile/
+#   - Once you have a GitHub team (e.g. @sms-org/eng), prefer the team over
+#     individual handles so future hires inherit ownership automatically.
+
+# Default reviewer for everything
+*                              @PROJECT-OWNER
+
+# Documentation
+/docs/                         @PROJECT-OWNER
+/README.md                     @PROJECT-OWNER
+
+# Shared business logic — single source of truth for pricing, IDs, validation
+/packages/core-logic/          @PROJECT-OWNER
+
+# Backend, desktop, mobile
+/apps/api/                     @PROJECT-OWNER
+/apps/desktop/                 @PROJECT-OWNER
+/apps/mobile/                  @PROJECT-OWNER
+
+# Infrastructure / CI / build config
+/.github/                      @PROJECT-OWNER
+/turbo.json                    @PROJECT-OWNER
+/pnpm-workspace.yaml           @PROJECT-OWNER
+/tsconfig.base.json            @PROJECT-OWNER
+/docker-compose.yml            @PROJECT-OWNER
+
+# Anything touching secrets handling
+/.env.example                  @PROJECT-OWNER

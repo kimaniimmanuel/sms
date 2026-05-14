@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "SMS Local",
+      "Group": "SMS",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "sms",
+      "Username": "sms",
+      "SSLMode": "prefer"
+    }
+  }
+}

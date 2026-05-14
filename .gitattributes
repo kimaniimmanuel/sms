@@ -1,0 +1,19 @@
+# Default to LF line endings; matches .editorconfig and CI assumptions.
+* text=auto eol=lf
+
+# Force binary mode for these — never normalise.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.pptx binary
+*.zip binary
+*.gz binary
+*.tar binary
+
+# Shell scripts always LF, even on Windows checkouts
+*.sh text eol=lf

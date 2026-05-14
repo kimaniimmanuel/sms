@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+coverage
+.turbo
+.scripts
+docs
+pnpm-lock.yaml
+*.docx
+*.pdf

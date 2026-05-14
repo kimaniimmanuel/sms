@@ -1,0 +1,9 @@
+{
+  "name": "sms-scripts",
+  "private": true,
+  "type": "commonjs",
+  "description": "Internal docx-generation scripts (CommonJS — not part of the workspace)",
+  "dependencies": {
+    "docx": "^9.6.1"
+  }
+}

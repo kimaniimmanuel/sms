@@ -1,0 +1,64 @@
+# Local development services for the SMS prototype.
+#
+# Brings up:
+#   - postgres:16 with healthcheck and a named volume
+#   - pgAdmin pre-registered with the postgres connection
+#
+# Usage:
+#   docker compose up -d            # start in background
+#   docker compose ps               # status
+#   docker compose logs -f postgres # tail postgres logs
+#   docker compose down             # stop (data preserved)
+#   docker compose down -v          # stop and delete data volume
+#
+# Connection from host machine (e.g. apps/api):
+#   postgresql://sms:sms_dev@localhost:5432/sms
+#
+# pgAdmin web UI:
+#   http://localhost:5050  (login: admin@sms.local / admin)
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sms
+      POSTGRES_PASSWORD: sms_dev
+      POSTGRES_DB: sms
+      # Required for pg_uuid v7 once we install it
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./apps/api/db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sms -d sms"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: sms-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@sms.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./.docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:
+    name: sms-postgres-data
+  pgadmin-data:
+    name: sms-pgadmin-data

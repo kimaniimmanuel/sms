@@ -1,0 +1,19 @@
+{
+  "name": "@sms/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron + React desktop client (placeholder — fleshed out in Epic E13)",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "echo 'apps/desktop dev not wired yet (Epic E13)'",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint src",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rimraf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@sms/core-logic": "workspace:*"
+  }
+}
