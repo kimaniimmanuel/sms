@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
@@ -9,12 +9,22 @@ import { AuthService } from "./auth.service.js";
 import { PasswordService } from "./password.service.js";
 import { JwtStrategy } from "./jwt.strategy.js";
 import { JwtAuthGuard } from "./jwt-auth.guard.js";
+import { RolesGuard } from "./roles.guard.js";
 import { RefreshToken } from "./refresh-token.entity.js";
 
 import { UsersModule } from "../users/users.module.js";
 import { TenantsModule } from "../tenants/tenants.module.js";
 import { TenantGuard } from "../common/guards/tenant.guard.js";
 
+/**
+ * @Global() because auth primitives — PasswordService, JwtAuthGuard,
+ * RolesGuard, TenantGuard — are used app-wide. Marking the module global
+ * lets feature modules (Users, Students, Attendance, ...) consume those
+ * primitives without explicit imports and without circular-import gymnastics
+ * (UsersModule → AuthModule → UsersModule would otherwise loop because
+ * AuthService depends on UsersService for login).
+ */
+@Global()
 @Module({
   imports: [
     UsersModule,
@@ -33,8 +43,21 @@ import { TenantGuard } from "../common/guards/tenant.guard.js";
     TypeOrmModule.forFeature([RefreshToken]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PasswordService, JwtStrategy, JwtAuthGuard, TenantGuard],
-  exports: [AuthService, PasswordService, JwtAuthGuard, TenantGuard],
+  providers: [
+    AuthService,
+    PasswordService,
+    JwtStrategy,
+    JwtAuthGuard,
+    RolesGuard,
+    TenantGuard,
+  ],
+  exports: [
+    AuthService,
+    PasswordService,
+    JwtAuthGuard,
+    RolesGuard,
+    TenantGuard,
+  ],
 })
 export class AuthModule {}
 

@@ -7,6 +7,7 @@ import { AppDataSource } from "./database/data-source.js";
 import { AuthModule } from "./auth/auth.module.js";
 import { UsersModule } from "./users/users.module.js";
 import { TenantsModule } from "./tenants/tenants.module.js";
+import { StudentsModule } from "./students/students.module.js";
 import { TenantGuard } from "./common/guards/tenant.guard.js";
 
 @Module({
@@ -16,6 +17,7 @@ import { TenantGuard } from "./common/guards/tenant.guard.js";
     TenantsModule,
     UsersModule,
     AuthModule,
+    StudentsModule,
   ],
   providers: [
     // Global TenantGuard — runs on every route by default. Routes that

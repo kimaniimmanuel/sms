@@ -10,7 +10,7 @@
     "dev": "tsx watch src/main.ts",
     "start": "NODE_ENV=production node dist/main.js",
     "test": "jest --passWithNoTests",
-    "test:e2e": "jest --config jest.e2e.config.cjs",
+    "test:e2e": "jest --config jest.e2e.config.cjs --runInBand",
     "lint": "eslint src",
     "typecheck": "tsc -p tsconfig.test.json",
     "clean": "rimraf dist .turbo *.tsbuildinfo",
