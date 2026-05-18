@@ -43,20 +43,16 @@ import { TenantGuard } from "../common/guards/tenant.guard.js";
     TypeOrmModule.forFeature([RefreshToken]),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    PasswordService,
-    JwtStrategy,
-    JwtAuthGuard,
-    RolesGuard,
-    TenantGuard,
-  ],
+  providers: [AuthService, PasswordService, JwtStrategy, JwtAuthGuard, RolesGuard, TenantGuard],
   exports: [
     AuthService,
     PasswordService,
     JwtAuthGuard,
     RolesGuard,
     TenantGuard,
+    // Re-exported so consumers of the @Global() AuthModule (e.g. PaymentsGateway
+    // verifying socket-handshake JWTs) can inject JwtService directly.
+    JwtModule,
   ],
 })
 export class AuthModule {}
