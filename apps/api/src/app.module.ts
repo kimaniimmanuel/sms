@@ -10,6 +10,9 @@ import { TenantsModule } from "./tenants/tenants.module.js";
 import { StudentsModule } from "./students/students.module.js";
 import { AttendanceModule } from "./attendance/attendance.module.js";
 import { HealthModule } from "./health/health.module.js";
+import { PaymentsModule } from "./payments/payments.module.js";
+import { AccessTokensModule } from "./access-tokens/access-tokens.module.js";
+import { SyncModule } from "./sync/sync.module.js";
 import { TenantGuard } from "./common/guards/tenant.guard.js";
 
 @Module({
@@ -22,6 +25,9 @@ import { TenantGuard } from "./common/guards/tenant.guard.js";
     StudentsModule,
     AttendanceModule,
     HealthModule,
+    AccessTokensModule,
+    PaymentsModule,
+    SyncModule,
   ],
   providers: [
     // Global TenantGuard — runs on every route by default. Routes that

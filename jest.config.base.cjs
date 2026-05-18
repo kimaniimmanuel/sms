@@ -55,6 +55,10 @@ module.exports = {
     "!src/**/*.decorator.ts",
     "!src/**/*.controller.ts",
     "!src/auth/jwt-auth.guard.ts",
+    // WebSocket gateway — covered by e2e socket tests, not unit tests
+    "!src/**/*.gateway.ts",
+    // Seed / one-off CLI scripts under src/database
+    "!src/database/seed.ts",
   ],
   coverageThreshold: {
     global: {
